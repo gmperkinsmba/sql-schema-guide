@@ -1,4 +1,4 @@
-# voodooSQL
+# SQL Schema Guide
 
 Give an analyst the schema details they need before writing a query.
 
@@ -8,7 +8,25 @@ Help an agent write correct SQL on a new schema. Show evidence for each query. T
 
 This local prototype scans an included made-up SQLite database. It shows the schema and evidence about table links. It finds reviewed query examples and runs them with read-only access. It does not connect to outside databases or use a language model.
 
-## Run
+## Install and run the Mac app
+
+The native wrapper runs the same local app in a macOS WebView. It starts its own loopback server on an unused port and stops it when the window closes. It does not connect to a server that is already running.
+
+From this source folder on macOS with Python 3.12, create an isolated build environment and install the frozen desktop dependencies:
+
+```sh
+python3.12 -m venv .desktop-venv
+source .desktop-venv/bin/activate
+python -m pip install -r requirements-desktop.lock.txt
+python build_desktop.py
+python install_desktop.py
+```
+
+The guarded installer places the app at `~/Applications/SQL Schema Guide.app`. Open it in Finder. Use **SQL Schema Guide → Quit** or press **Command-Q** to close it. The installer replaces only a copy with this app's bundle ID and owner marker, and keeps the prior copy as a backup. To uninstall, move `SQL Schema Guide.app` from Applications to Trash. The fixture, catalog metadata, and settings remain in `~/.voodoosql`.
+
+The build does not request a Developer ID signature or notarization. macOS may ask you to confirm the locally built app the first time it opens.
+
+## Browser development
 
 You need Python 3.10 or newer. No third-party packages are needed.
 
@@ -44,25 +62,8 @@ The separate catalog API is `Catalog.from_sqlite(path, allowed_schemas=None)`. I
 
 The app uses a made-up SQLite fixture only. It has no real schema or customer data. It has no secrets or outside connection details.
 
-**Native Mac app**
 
-The native wrapper runs the same local app in a macOS WebView. It starts its own loopback server on an unused port and stops it when the window closes. It does not connect to a server that is already running.
-
-From this source folder on macOS with Python 3.12, create an isolated build environment and install the frozen desktop dependencies:
-
-```sh
-python3.12 -m venv .desktop-venv
-source .desktop-venv/bin/activate
-python -m pip install -r requirements-desktop.lock.txt
-python build_desktop.py
-python install_desktop.py
-```
-
-The guarded installer places `voodooSQL.app` in `~/Applications`. Open it in Finder. Use **voodooSQL → Quit** or press **Command-Q** to close it. The installer replaces only a copy with this app's bundle ID and owner marker, and keeps the prior copy as a backup. To uninstall, move `voodooSQL.app` from Applications to Trash. The fixture, catalog metadata, and settings remain in `~/.voodoosql`.
-
-The build does not request a Developer ID signature or notarization. macOS may ask you to confirm the locally built app the first time it opens.
-
-**Development**
+## Development
 
 Run the browser version with `python3 server.py` at `http://127.0.0.1:8332`. Stop it with Ctrl-C. The native wrapper saves its only preference, reduced motion, as owner-only `preferences.json` in `~/.voodoosql`. No localStorage state or browser profile is imported.
 

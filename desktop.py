@@ -1,4 +1,4 @@
-"""Native macOS shell for voodooSQL."""
+"""Native macOS shell for SQL Schema Guide."""
 from __future__ import annotations
 
 import sys
@@ -13,7 +13,7 @@ from desktop_policy import install_policy
 
 def run() -> None:
     if sys.platform != "darwin":
-        raise SystemExit("voodooSQL desktop runs on macOS.")
+        raise SystemExit("SQL Schema Guide desktop runs on macOS.")
     backend = server.make_server(port=0)
     worker = threading.Thread(target=backend.serve_forever, name="voodoosql-http", daemon=True)
     worker_started = False
@@ -23,8 +23,8 @@ def run() -> None:
         worker_started = True
         origin = f"http://127.0.0.1:{backend.server_port}"
         url = origin + "/?desktop=1"
-        menu = [Menu("voodooSQL", [MenuAction("Settings", lambda _w=None: window.evaluate_js("document.getElementById('settingsOpen').click()") if window else None), MenuAction("Quit", lambda _w=None: window.destroy() if window else None)])]
-        window = webview.create_window("voodooSQL", url, width=1080, height=760, min_size=(820, 600), menu=menu)
+        menu = [Menu("SQL Schema Guide", [MenuAction("Settings", lambda _w=None: window.evaluate_js("document.getElementById('settingsOpen').click()") if window else None), MenuAction("Quit", lambda _w=None: window.destroy() if window else None)])]
+        window = webview.create_window("SQL Schema Guide", url, width=1080, height=760, min_size=(820, 600), menu=menu)
         install_policy(origin)
         webview.start()
     finally:
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         import AppKit
 
         alert = AppKit.NSAlert.alloc().init()
-        alert.setMessageText_("voodooSQL could not start")
+        alert.setMessageText_("SQL Schema Guide could not start")
         alert.setInformativeText_("The local app could not open. Quit it and try again.")
         alert.addButtonWithTitle_("OK")
         alert.runModal()

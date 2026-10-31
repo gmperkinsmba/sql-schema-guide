@@ -1,4 +1,4 @@
-"""Loopback server for the voodooSQL browser and native app."""
+"""Loopback server for the SQL Schema Guide browser and native app."""
 from __future__ import annotations
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -175,7 +175,7 @@ def make_server(port: int = 0) -> ThreadingHTTPServer:
 def serve(port: int = PORT):
     server = make_server(port=port)
     try:
-        print(f"voodooSQL listening at http://{HOST}:{server.server_port}", flush=True)
+        print(f"SQL Schema Guide listening at http://{HOST}:{server.server_port}", flush=True)
         server.serve_forever()
     except KeyboardInterrupt:
         pass
