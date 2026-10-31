@@ -1,0 +1,6 @@
+static/index.html
+static/app.css
+static/app-extra.css
+static/desktop.css
+static/app.js
+static/eval-extra.js

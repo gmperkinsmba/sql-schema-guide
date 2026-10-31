@@ -11,7 +11,10 @@ runtime/
 uploads/
 exports/
 .venv/
+.desktop-venv/
 venv/
 build/
 dist/
+*.spec
+.DS_Store
 graphify-out/

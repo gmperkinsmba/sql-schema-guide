@@ -1,0 +1,3 @@
+local-build-owner-marker-v1
+voodooSQL
+io.github.gmperkinsmba.voodoosql

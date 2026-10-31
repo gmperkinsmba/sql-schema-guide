@@ -1,10 +1,10 @@
 """Read-only SQLite catalog and checked query-pack engine."""
 from __future__ import annotations
-import hashlib, json, os, re, sqlite3, time
+import hashlib, json, os, re, sqlite3, sys, time
 from dataclasses import dataclass
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent)).resolve()
 RUNTIME = Path(os.environ.get("VOODOOSQL_HOME", Path.home() / ".voodoosql"))
 FIXTURE = RUNTIME / "demo.sqlite"
 METADATA_DB = RUNTIME / "catalog.sqlite"
@@ -42,6 +42,7 @@ class CatalogSnapshot:
 def save_catalog(snapshot, path=METADATA_DB):
     path = Path(path)
     path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    os.chmod(path.parent,0o700)
     c=sqlite3.connect(path)
     c.executescript("CREATE TABLE IF NOT EXISTS snapshots(fingerprint TEXT PRIMARY KEY, completeness TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP); CREATE TABLE IF NOT EXISTS objects(fingerprint TEXT NOT NULL, object_id TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(fingerprint,object_id)); CREATE TABLE IF NOT EXISTS relationships(fingerprint TEXT NOT NULL, relation_id TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(fingerprint,relation_id));")
     c.execute("INSERT OR IGNORE INTO snapshots(fingerprint,completeness) VALUES (?,?)",(snapshot.fingerprint,json.dumps(snapshot.completeness,sort_keys=True)))
@@ -139,6 +140,7 @@ class QueryPack:
 
 def seed(path=FIXTURE):
     path=Path(path); path.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
+    os.chmod(path.parent,0o700)
     c=sqlite3.connect(path)
     if c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='customers'").fetchone():
         c.execute("PRAGMA application_id=1448309587"); c.commit(); c.close(); os.chmod(path,0o600); return
