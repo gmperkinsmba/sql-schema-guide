@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+.env
+secrets*
+runtime/
+uploads/
+exports/
+.venv/
+venv/
+build/
+dist/
+graphify-out/

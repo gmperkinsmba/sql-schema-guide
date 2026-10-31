@@ -1,0 +1,10 @@
+.relationhead{margin-top:21px;padding-bottom:8px;border-bottom:1px solid var(--line);font:10px var(--mono);letter-spacing:.13em;color:#9daeb3}
+.relationlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}
+.relation{min-width:0;padding:10px;border:1px solid var(--line);border-radius:5px;background:#0d1418;font:10px/1.5 var(--mono);overflow-wrap:anywhere}
+.relation b{font-weight:500;color:#d9e4e0}
+.relcols{margin:6px 0;color:#b9c9c1}
+.relcols span{color:#72847d}
+.relation small{font:9px/1.5 var(--sans);color:#819098}
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+@media(max-width:720px){.relationlist{grid-template-columns:1fr}}
+@media(max-width:390px){h1{font-size:32px}.top{gap:8px}.brand{font-size:15px;gap:7px}.topmeta{gap:4px}.live{display:none}.quiet{padding:5px 0}.statusrow{display:grid;grid-template-columns:1fr 1fr}.statusrow div:nth-child(3){grid-column:1/-1}.statusrow div:nth-child(2){max-width:none}.statusrow strong{overflow-wrap:anywhere}.tabs{overflow-x:auto;white-space:nowrap}.tab{flex:0 0 auto}}
